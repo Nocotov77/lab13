@@ -1,0 +1,154 @@
+{
+  "errors": [],
+  "generated_at": "2026-04-28T23:36:27Z",
+  "metrics": {
+    ".\\app.py": {
+      "CONFIDENCE.HIGH": 2,
+      "CONFIDENCE.LOW": 2,
+      "CONFIDENCE.MEDIUM": 2,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 2,
+      "SEVERITY.LOW": 1,
+      "SEVERITY.MEDIUM": 3,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 88,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 2,
+      "CONFIDENCE.LOW": 2,
+      "CONFIDENCE.MEDIUM": 2,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 2,
+      "SEVERITY.LOW": 1,
+      "SEVERITY.MEDIUM": 3,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 88,
+      "nosec": 0,
+      "skipped_tests": 0
+    }
+  },
+  "results": [
+    {
+      "code": "74     # TODO: \u0418\u0441\u043f\u0440\u0430\u0432\u0438\u0442\u044c SQL-\u0438\u043d\u044a\u0435\u043a\u0446\u0438\u044e, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0437\u0430\u043f\u0440\u043e\u0441\n75     query = f\"SELECT * FROM users WHERE id = {user_id}\"\n76     cursor.execute(query)\n",
+      "col_offset": 14,
+      "end_col_offset": 45,
+      "filename": ".\\app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 75,
+      "line_range": [
+        75
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "94     # TODO: \u0418\u0441\u043f\u0440\u0430\u0432\u0438\u0442\u044c SQL-\u0438\u043d\u044a\u0435\u043a\u0446\u0438\u044e\n95     query = f\"SELECT * FROM users WHERE username LIKE '%{username}%'\"\n96     cursor.execute(query)\n",
+      "col_offset": 14,
+      "end_col_offset": 56,
+      "filename": ".\\app.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 95,
+      "line_range": [
+        95
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "116     # TODO: \u0418\u0441\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u2014 \u043b\u0438\u0431\u043e \u0443\u0431\u0440\u0430\u0442\u044c \u044d\u043d\u0434\u043f\u043e\u0438\u043d\u0442, \u043b\u0438\u0431\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c allow-list\n117     import subprocess\n118     result = subprocess.check_output(cmd, shell=True)\n",
+      "col_offset": 4,
+      "end_col_offset": 21,
+      "filename": ".\\app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 117,
+      "line_range": [
+        117
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "117     import subprocess\n118     result = subprocess.check_output(cmd, shell=True)\n119     \n",
+      "col_offset": 13,
+      "end_col_offset": 53,
+      "filename": ".\\app.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "subprocess call with shell=True identified, security issue.",
+      "line_number": 118,
+      "line_range": [
+        118
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+      "test_id": "B602",
+      "test_name": "subprocess_popen_with_shell_equals_true"
+    },
+    {
+      "code": "123     init_db()\n124     app.run(debug=True, host='0.0.0.0', port=5000)\n",
+      "col_offset": 4,
+      "end_col_offset": 50,
+      "filename": ".\\app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 94,
+        "link": "https://cwe.mitre.org/data/definitions/94.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 124,
+      "line_range": [
+        124
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "123     init_db()\n124     app.run(debug=True, host='0.0.0.0', port=5000)\n",
+      "col_offset": 29,
+      "end_col_offset": 38,
+      "filename": ".\\app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 605,
+        "link": "https://cwe.mitre.org/data/definitions/605.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 124,
+      "line_range": [
+        124
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    }
+  ]
+}
