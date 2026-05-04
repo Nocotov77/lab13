@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Comment Board</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .comment { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+        .username { font-weight: bold; color: #333; }
+        .date { font-size: 0.8em; color: #666; }
+        .error { color: red; }
+        form { margin: 20px 0; }
+        input, textarea { width: 300px; margin: 5px 0; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Comment Board</h1>
+
+    <form action="/comment" method="POST">
+        <div>
+            <label>Username:</label><br>
+            <input type="text" name="username" placeholder="Your name">
+        </div>
+        <div>
+            <label>Comment:</label><br>
+            <textarea name="comment" rows="4" cols="40" placeholder="Your comment"></textarea>
+        </div>
+        <button type="submit">Post Comment</button>
+    </form>
+
+    <h2>Comments</h2>
+    <% if (error) { %>
+        <div class="error"><%= error %></div>
+    <% } %>
+    <% comments.forEach(function(c) { %>
+        <div class="comment">
+            <div class="username"><%= c.username %></div>
+            <div class="comment-text"><%= c.comment %></div>
+            <div class="date"><%= c.created_at %></div>
+        </div>
+    <% }); %>
+
+    <h3>API Data</h3>
+    <button id="loadBtn">Load Comments via API</button>
+    <div id="api-result"></div>
+
+    <h3>Safe JSON Parser</h3>
+    <textarea id="user-code" rows="4" cols="40" placeholder='{"key":"value"}'></textarea><br>
+    <button id="parseBtn">Parse JSON</button>
+    <pre id="code-output"></pre>
+
+    <script nonce="<%= nonce %>">
+        // Безопасная загрузка через API (используем textContent)
+        document.getElementById('loadBtn').addEventListener('click', () => {
+            fetch('/api/comments')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('api-result');
+                    container.innerHTML = '';
+                    data.forEach(comment => {
+                        const div = document.createElement('div');
+                        div.textContent = comment.comment;
+                        container.appendChild(div);
+                    });
+                })
+                .catch(err => console.error(err));
+        });
+
+        // Безопасный парсинг JSON (вместо eval)
+        document.getElementById('parseBtn').addEventListener('click', () => {
+            const code = document.getElementById('user-code').value;
+            const out = document.getElementById('code-output');
+            try {
+                const obj = JSON.parse(code);
+                out.textContent = 'Parsed: ' + JSON.stringify(obj, null, 2);
+            } catch (e) {
+                out.textContent = 'Invalid JSON: ' + e.message;
+            }
+        });
+    </script>
+</body>
+</html>
